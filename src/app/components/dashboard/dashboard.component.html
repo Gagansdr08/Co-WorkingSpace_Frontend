@@ -1,0 +1,24 @@
+<p>dashboard works!</p>
+<div class="dashboard-container">
+    <header class="dashboard-header">
+      <h1>Employee Dashboard</h1>
+      <div class="user-info" *ngIf="currentEmployee">
+        <span>Welcome, {{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</span>
+      </div>
+    </header>
+  
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </div>
+  
+    <nav class="dashboard-nav">
+      <ul>
+        <li><a routerLink="booking" routerLinkActive="active">Booking</a></li>
+        <li><a routerLink="upcoming" routerLinkActive="active">Upcoming Bookings</a></li>
+        <li><a routerLink="past" routerLinkActive="active">Past Bookings</a></li>
+      </ul>
+    </nav>
+    <router-outlet></router-outlet>
+</div>
+

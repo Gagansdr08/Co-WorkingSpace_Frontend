@@ -1,0 +1,34 @@
+<p>seat-map works!</p>
+<div class="seat-map-container">
+    <div class="no-seats" *ngIf="seats.length === 0">
+      No seats available
+    </div>
+    
+    <div class="seat-grid" *ngIf="seats.length > 0">
+      <div 
+        *ngFor="let seat of seats" 
+        class="seat-item" 
+        [class.selected]="selectedSeat?.id === seat.id"
+        [class.available]="isSeatSelectable(seat)"
+        [class.unavailable]="!isSeatSelectable(seat)"
+        (click)="selectSeat(seat)">
+        <div class="seat-number">{{ seat.seatNumber }}</div>
+        <div class="seat-status">{{ getSeatStatusLabel(seat.status) }}</div>
+      </div>
+    </div>
+    
+    <div class="seat-map-legend">
+      <div class="legend-item">
+        <div class="legend-color available"></div>
+        <div class="legend-text">Available</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color unavailable"></div>
+        <div class="legend-text">Unavailable</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color selected"></div>
+        <div class="legend-text">Selected</div>
+      </div>
+    </div>
+  </div>

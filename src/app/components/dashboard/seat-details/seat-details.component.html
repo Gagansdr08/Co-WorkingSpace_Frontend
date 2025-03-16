@@ -1,0 +1,31 @@
+<p>seat-details works!</p>
+<div class="seat-details-container" *ngIf="seat">
+    <h3>Seat Details</h3>
+    
+    <div class="detail-item">
+      <span class="detail-label">Seat Number:</span>
+      <span class="detail-value">{{ seat.seatNumber }}</span>
+    </div>
+    
+    <div class="detail-item">
+      <span class="detail-label">Status:</span>
+      <span class="detail-value status" [ngClass]="seat.status.toLowerCase()">
+        {{ getSeatStatusLabel(seat.status) }}
+      </span>
+    </div>
+    
+    <div class="detail-item">
+      <span class="detail-label">Type:</span>
+      <span class="detail-value">{{ seat.type }}</span>
+    </div>
+    
+    <div class="detail-item">
+      <span class="detail-label">Features:</span>
+      <span class="detail-value">{{ seat.features }}</span>
+    </div>
+    
+    <div class="detail-item" *ngIf="seat.companyName">
+      <span class="detail-label">Allocated to:</span>
+      <span class="detail-value">{{ seat.companyName }}</span>
+    </div>
+  </div>

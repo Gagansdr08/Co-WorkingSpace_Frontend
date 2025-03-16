@@ -1,0 +1,107 @@
+<p>booking works!</p>
+<div class="booking-container">
+    <h2>Book a Seat</h2>
+    
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+    </div>
+  
+    <div class="booking-steps">
+      <!-- Step 1: Workspace Selection -->
+      <div class="booking-step">
+        <h3>Step 1: Select a Workspace</h3>
+        <div style="padding: 10px; background-color: #f0f0f0; margin-bottom: 10px;">
+          Workspaces count: {{ availableWorkspaces?.length || 0 }}
+        </div>
+        <div class="workspace-list">
+          <div 
+            *ngFor="let workspace of availableWorkspaces" 
+            class="workspace-card" 
+            [class.selected]="selectedWorkspace?.id === workspace.id"
+            (click)="selectWorkspace(workspace)">
+            <h4>{{ workspace.name }}</h4>
+            <p>{{ workspace.type }} - {{ workspace.location }}</p>
+            <p>Price per Seat: ${{ workspace.pricePerSeatPerHour.toFixed(2) }}/hour</p>
+            <p>Allocated Seats: {{ workspace.companyAllocatedSeats }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Step 2: Seat Selection -->
+      <div class="booking-step" *ngIf="selectedWorkspace">
+        <h3>Step 2: Select a Seat</h3>
+        
+        <div class="seat-map">
+          <div class="seat-grid">
+            <div 
+              *ngFor="let seat of availableSeats" 
+              class="seat-item" 
+              [class.selected]="selectedSeat?.id === seat.id"
+              [class.available]="isSeatAvailable(seat)"
+              [class.unavailable]="!isSeatAvailable(seat)"
+              (click)="isSeatAvailable(seat) && selectSeat(seat)">
+              <div class="seat-number">{{ seat.seatNumber }}</div>
+              <div class="seat-status">{{ getSeatStatusLabel(seat.status) }}</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="seat-details" *ngIf="selectedSeat">
+          <h4>Selected Seat Details</h4>
+          <p><strong>Seat Number:</strong> {{ selectedSeat.seatNumber }}</p>
+          <p><strong>Status:</strong> {{ getSeatStatusLabel(selectedSeat.status) }}</p>
+          <p><strong>Type:</strong> {{ selectedSeat.type }}</p>
+          <p><strong>Features:</strong> {{ selectedSeat.features }}</p>
+        </div>
+      </div>
+  
+      <!-- Step 3: Booking Details -->
+      <div class="booking-step" *ngIf="selectedSeat">
+        <h3>Step 3: Enter Booking Details</h3>
+        
+        <form [formGroup]="bookingForm" (ngSubmit)="createBooking()">
+          <div class="form-group">
+            <label for="startTime">Start Time</label>
+            <input 
+              type="datetime-local" 
+              id="startTime" 
+              formControlName="startTime"
+              class="form-control">
+            <div class="error-message" *ngIf="bookingForm.get('startTime')?.invalid && bookingForm.get('startTime')?.touched">
+              Start time is required
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="endTime">End Time</label>
+            <input 
+              type="datetime-local" 
+              id="endTime" 
+              formControlName="endTime"
+              class="form-control">
+            <div class="error-message" *ngIf="bookingForm.get('endTime')?.invalid && bookingForm.get('endTime')?.touched">
+              End time is required
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes">Notes (Optional)</label>
+            <textarea 
+              id="notes" 
+              formControlName="notes"
+              class="form-control"
+              rows="3"></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" [disabled]="bookingForm.invalid || loading">
+              Book Seat
+            </button>
+            <button type="button" class="btn-secondary" (click)="resetForm()">
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>

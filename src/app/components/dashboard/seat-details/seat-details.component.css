@@ -1,0 +1,47 @@
+.seat-details-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #3498db;
+  }
+  
+  .seat-details-container h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .detail-item {
+    margin-bottom: 0.75rem;
+    display: flex;
+  }
+  
+  .detail-label {
+    font-weight: bold;
+    color: #7f8c8d;
+    min-width: 100px;
+  }
+  
+  .status {
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .status.available {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .status.company_allocated {
+    background-color: #e3f2fd;
+    color: #1565c0;
+  }
+  
+  .status.booked {
+    background-color: #ffebee;
+    color: #b71c1c;
+  }

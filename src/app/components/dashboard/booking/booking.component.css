@@ -1,0 +1,213 @@
+.booking-container {
+    padding: 1rem;
+  }
+  
+  .booking-container h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+  }
+  
+  .loading-error-container {
+    margin-bottom: 1rem;
+  }
+  
+  .loading {
+    color: #3498db;
+  }
+  
+  .error {
+    color: #e74c3c;
+    background-color: #fadbd8;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  
+  .success {
+    color: #27ae60;
+    background-color: #d4efdf;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  
+  .booking-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .booking-step {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .booking-step h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+  
+  /* Workspace Selection */
+  .workspace-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .workspace-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .workspace-card:hover {
+    border-color: #3498db;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .workspace-card.selected {
+    border-color: #3498db;
+    background-color: #ebf5fb;
+  }
+  
+  .workspace-card h4 {
+    margin-top: 0;
+    color: #2c3e50;
+  }
+  
+  /* Seat Selection */
+  .seat-map {
+    margin-bottom: 1.5rem;
+  }
+  
+  .seat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+  
+  .seat-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .seat-item.available {
+    background-color: #d4efdf;
+    border-color: #27ae60;
+  }
+  
+  .seat-item.unavailable {
+    background-color: #fadbd8;
+    border-color: #e74c3c;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .seat-item.selected {
+    border: 2px solid #3498db;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.4);
+  }
+  
+  .seat-number {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .seat-status {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+  }
+  
+  .seat-details {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+  }
+  
+  .seat-details h4 {
+    margin-top: 0;
+    color: #2c3e50;
+  }
+  
+  /* Form Styling */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-control:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+  
+  .form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    background-color: #2980b9;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+  }
+  
+  .btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #7f8c8d;
+  }
