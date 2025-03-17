@@ -70,7 +70,10 @@
               formControlName="startTime"
               class="form-control">
             <div class="error-message" *ngIf="bookingForm.get('startTime')?.invalid && bookingForm.get('startTime')?.touched">
-              Start time is required
+              <span *ngIf="bookingForm.get('startTime')?.errors?.['required']">Start time is required</span>
+              <span *ngIf="bookingForm.get('startTime')?.errors?.['dateInvalid']">
+                Bookings must be made at least one day in advance
+              </span>
             </div>
           </div>
           
@@ -82,7 +85,10 @@
               formControlName="endTime"
               class="form-control">
             <div class="error-message" *ngIf="bookingForm.get('endTime')?.invalid && bookingForm.get('endTime')?.touched">
-              End time is required
+              <span *ngIf="bookingForm.get('endTime')?.errors?.['required']">End time is required</span>
+              <span *ngIf="bookingForm.get('endTime')?.errors?.['dateInvalid']">
+                Bookings must be made at least one day in advance
+              </span>
             </div>
           </div>
           

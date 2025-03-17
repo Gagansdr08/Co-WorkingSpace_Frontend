@@ -62,4 +62,17 @@ export class BookingService {
     return this.apiService.put<ApiResponse<Booking>>(`/bookings/${bookingId}/cancel?employeeId=${employeeId}`)
       .pipe(map(response => response.data));
   }
+
+
+  getBookingsForDate(dateStr: string): Observable<any[]> {
+    return this.apiService.get<ApiResponse<any[]>>(`/bookings/date/${dateStr}`)
+      .pipe(map(response => response.data));
+  }
+  
+  
+  refreshBookingStatuses(): Observable<boolean> {
+    // This would ideally be a server-side function, but we can implement a client-side version
+    return this.apiService.get<ApiResponse<boolean>>('/bookings/refresh-statuses')
+      .pipe(map(response => response.data));
+  }
 }
