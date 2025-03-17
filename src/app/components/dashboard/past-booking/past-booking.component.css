@@ -1,0 +1,100 @@
+.past-booking-container {
+    padding: 1rem;
+  }
+  
+  .past-booking-container h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+  }
+  
+  .loading-error-container {
+    margin-bottom: 1rem;
+  }
+  
+  .loading {
+    color: #3498db;
+  }
+  
+  .error {
+    color: #e74c3c;
+    background-color: #fadbd8;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  
+  .no-bookings {
+    padding: 2rem;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+  
+  .booking-history-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+  
+  .booking-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+  
+  .booking-history-table th,
+  .booking-history-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .booking-history-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .booking-history-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .booking-history-table tr.cancelled {
+    background-color: #ffebee;
+  }
+  
+  .booking-history-table tr.checked_out {
+    background-color: #f1f8e9;
+  }
+  
+  .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .status-badge.confirmed {
+    background-color: #e3f2fd;
+    color: #1565c0;
+  }
+  
+  .status-badge.checked_in {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .status-badge.checked_out {
+    background-color: #f8bbd0;
+    color: #c2185b;
+  }
+  
+  .status-badge.cancelled {
+    background-color: #ffebee;
+    color: #b71c1c;
+  }

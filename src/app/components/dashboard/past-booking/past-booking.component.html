@@ -1,1 +1,44 @@
 <p>past-booking works!</p>
+<div class="past-booking-container">
+    <h2>Past Bookings</h2>
+    
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </div>
+    
+    <div class="no-bookings" *ngIf="!loading && pastBookings.length === 0">
+      You don't have any past bookings.
+    </div>
+    
+    <div class="booking-history-container" *ngIf="pastBookings.length > 0">
+      <table class="booking-history-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Workspace</th>
+            <th>Seat</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Duration</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of pastBookings" [ngClass]="booking.status.toLowerCase()">
+            <td>{{ booking.bookingDate | date: 'mediumDate' }}</td>
+            <td>{{ booking.workspaceName }}</td>
+            <td>{{ booking.seatNumber }}</td>
+            <td>{{ formatDateTime(booking.startTime) }}</td>
+            <td>{{ formatDateTime(booking.endTime) }}</td>
+            <td>{{ getDuration(booking.startTime, booking.endTime) }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="booking.status.toLowerCase()">
+                {{ booking.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -1,1 +1,68 @@
 <p>upcoming-booking works!</p>
+<div class="upcoming-booking-container">
+    <h2>Upcoming Bookings</h2>
+    
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+    </div>
+    
+    <div class="no-bookings" *ngIf="!loading && upcomingBookings.length === 0">
+      You don't have any upcoming bookings.
+    </div>
+    
+    <div class="bookings-list" *ngIf="upcomingBookings.length > 0">
+      <div class="booking-card" *ngFor="let booking of upcomingBookings">
+        <div class="booking-header">
+          <h3>{{ booking.workspaceName }} - Seat {{ booking.seatNumber }}</h3>
+          <span class="booking-status" [ngClass]="booking.status.toLowerCase()">{{ booking.status }}</span>
+        </div>
+        
+        <div class="booking-details">
+          <div class="detail-group">
+            <label>Start Time:</label>
+            <span>{{ formatDateTime(booking.startTime) }}</span>
+          </div>
+          
+          <div class="detail-group">
+            <label>End Time:</label>
+            <span>{{ formatDateTime(booking.endTime) }}</span>
+          </div>
+          
+          <div class="detail-group" *ngIf="booking.checkInTime">
+            <label>Check-in Time:</label>
+            <span>{{ formatDateTime(booking.checkInTime) }}</span>
+          </div>
+          
+          <div class="detail-group" *ngIf="booking.notes">
+            <label>Notes:</label>
+            <span>{{ booking.notes }}</span>
+          </div>
+        </div>
+        
+        <div class="booking-actions">
+          <button 
+            *ngIf="canCheckIn(booking)" 
+            class="btn-primary" 
+            (click)="checkIn(booking.id)">
+            Check In
+          </button>
+          
+          <button 
+            *ngIf="canCheckOut(booking)" 
+            class="btn-primary" 
+            (click)="checkOut(booking.id)">
+            Check Out
+          </button>
+          
+          <button 
+            *ngIf="canCancel(booking)" 
+            class="btn-danger" 
+            (click)="cancelBooking(booking.id)">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
