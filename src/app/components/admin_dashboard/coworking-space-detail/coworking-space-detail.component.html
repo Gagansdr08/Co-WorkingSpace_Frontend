@@ -1,0 +1,19 @@
+<div class="container mt-4">
+    <h2>Coworking Space Details</h2>
+  
+    <div *ngIf="isLoading" class="alert alert-info">Loading details...</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+    <div *ngIf="coworkingSpace">
+      <h3>{{ coworkingSpace.name }}</h3>
+      <p>{{ coworkingSpace.description }}</p>
+      <p><strong>Address:</strong> {{ coworkingSpace.address }}</p>
+      <p><strong>Contact Email:</strong> {{ coworkingSpace.contactEmail }}</p>
+      <p><strong>Contact Phone:</strong> {{ coworkingSpace.contactPhone }}</p>
+      <p><strong>Total Seats:</strong> {{ coworkingSpace.totalSeats }}</p>
+      <p><strong>Available Seats:</strong> {{ coworkingSpace.availableSeats }}</p>
+      <p><strong>Status:</strong> {{ coworkingSpace.active ? 'Active' : 'Inactive' }}</p>
+      <a routerLink="/coworking-spaces" class="btn btn-primary">Back to List</a>
+    </div>
+  </div>
+  

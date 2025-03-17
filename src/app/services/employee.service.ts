@@ -14,7 +14,7 @@ export class EmployeeService {
 
   // Get current employee
   getCurrentEmployee(): Observable<Employee> {
-    return this.apiService.get<ApiResponse<Employee>>('/employees/1')//this should be /me , changed for convience
+    return this.apiService.get<ApiResponse<Employee>>('/employees/2')//this should be /me , changed for convience
       .pipe(map(response => response.data));
   }
 
