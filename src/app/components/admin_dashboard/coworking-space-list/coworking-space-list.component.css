@@ -1,0 +1,15 @@
+.card {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: white;
+  }
+  
+  .card-body h5 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  a{
+    margin: 5px;
+  }
+  
