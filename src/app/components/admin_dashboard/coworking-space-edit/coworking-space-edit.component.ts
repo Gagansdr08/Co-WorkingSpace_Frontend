@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CoworkingSpaceService } from '../../../services/coworking-space.service';
 import { CoworkingSpace } from '../../../models';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-coworking-space-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './coworking-space-edit.component.html',
   styleUrls: ['./coworking-space-edit.component.css']
 })
@@ -22,6 +22,10 @@ export class CoworkingSpaceEditComponent implements OnInit {
     private router: Router,
     private coworkingSpaceService: CoworkingSpaceService
   ) {}
+
+  goBack(): void {
+    this.router.navigate(['/coworking-spaces']); 
+  }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

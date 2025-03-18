@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CoworkingSpaceService } from '../../../services/coworking-space.service';
 import { CoworkingSpace } from '../../../models';
 
 @Component({
   selector: 'app-coworking-space-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './coworking-space-detail.component.html',
   styleUrls: ['./coworking-space-detail.component.css']
 })
@@ -16,9 +16,14 @@ export class CoworkingSpaceDetailComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
 
+  goBack(): void {
+    this.router.navigate(['/coworking-spaces']);
+  }
+
   constructor(
     private route: ActivatedRoute,
-    private coworkingSpaceService: CoworkingSpaceService
+    private coworkingSpaceService: CoworkingSpaceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

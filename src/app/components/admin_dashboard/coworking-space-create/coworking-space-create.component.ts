@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CoworkingSpaceService } from '../../../services/coworking-space.service';
 import { FormsModule } from '@angular/forms';
 import { CoworkingSpace } from '../../../models';
@@ -9,7 +9,7 @@ import { CoworkingSpace } from '../../../models';
 @Component({
   selector: 'app-coworking-space-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './coworking-space-create.component.html',
   styleUrls: ['./coworking-space-create.component.css']
 })
@@ -24,6 +24,10 @@ export class CoworkingSpaceCreateComponent {
     totalSeats: 0,
     availableSeats: 0
   };
+
+  goBack(): void {
+    this.router.navigate(['/coworking-spaces']);
+  }
 
   isLoading = false;
   errorMessage: string | null = null;

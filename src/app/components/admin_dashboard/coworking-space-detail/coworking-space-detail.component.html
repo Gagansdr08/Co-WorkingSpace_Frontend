@@ -13,7 +13,9 @@
       <p><strong>Total Seats:</strong> {{ coworkingSpace.totalSeats }}</p>
       <p><strong>Available Seats:</strong> {{ coworkingSpace.availableSeats }}</p>
       <p><strong>Status:</strong> {{ coworkingSpace.active ? 'Active' : 'Inactive' }}</p>
-      <a routerLink="/coworking-spaces" class="btn btn-primary">Back to List</a>
+    <div class="text-center mt-4">
+        <button class="btn btn-secondary" (click)="goBack()">Back to List</button>
+    </div>
     </div>
   </div>
   
