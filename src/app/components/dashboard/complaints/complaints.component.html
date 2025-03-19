@@ -1,0 +1,79 @@
+<!-- src/app/components/dashboard/complaints/complaints.component.html -->
+<div class="complaints-container">
+    <div class="complaints-header">
+      <h2>Complaints</h2>
+      <button class="btn-primary" (click)="toggleForm()">
+        {{ showForm ? 'Cancel' : 'Submit New Complaint' }}
+      </button>
+    </div>
+    
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+    </div>
+    
+    <div class="complaint-form-container" *ngIf="showForm">
+      <form [formGroup]="complaintForm" (ngSubmit)="submitComplaint()">
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input 
+            type="text" 
+            id="subject" 
+            formControlName="subject"
+            class="form-control">
+          <div class="error-message" *ngIf="complaintForm.get('subject')?.invalid && complaintForm.get('subject')?.touched">
+            <span *ngIf="complaintForm.get('subject')?.errors?.['required']">Subject is required</span>
+            <span *ngIf="complaintForm.get('subject')?.errors?.['maxlength']">Subject must be less than 100 characters</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea 
+            id="description" 
+            formControlName="description"
+            class="form-control"
+            rows="4"></textarea>
+          <div class="error-message" *ngIf="complaintForm.get('description')?.invalid && complaintForm.get('description')?.touched">
+            <span *ngIf="complaintForm.get('description')?.errors?.['required']">Description is required</span>
+            <span *ngIf="complaintForm.get('description')?.errors?.['maxlength']">Description must be less than 500 characters</span>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="complaintForm.invalid || loading">
+            Submit Complaint
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="no-complaints" *ngIf="!loading && complaints.length === 0">
+      You don't have any complaints.
+    </div>
+    
+    <div class="complaints-list" *ngIf="complaints.length > 0">
+      <div class="complaint-card" *ngFor="let complaint of complaints">
+        <div class="complaint-header">
+          <h3>{{ complaint.subject }}</h3>
+          <span class="complaint-status" [ngClass]="getStatusClass(complaint.status || 'NEW')">
+            {{ complaint.status || 'NEW' }}
+          </span>
+        </div>
+        
+        <div class="complaint-content">
+          <p>{{ complaint.description }}</p>
+        </div>
+        
+        <div class="complaint-footer">
+          <div class="complaint-timestamp">
+            Submitted: {{ formatDate(complaint.createdAt || '') }}
+          </div>
+          <button class="btn-danger" (click)="deleteComplaint(complaint.id || 0)" *ngIf="complaint.status === 'NEW'">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

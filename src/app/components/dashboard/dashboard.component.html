@@ -12,13 +12,15 @@
       <div class="error" *ngIf="error">{{ error }}</div>
     </div>
   
-    <nav class="dashboard-nav">
-      <ul>
-        <li><a routerLink="booking" routerLinkActive="active">Booking</a></li>
-        <li><a routerLink="upcoming" routerLinkActive="active">Upcoming Bookings</a></li>
-        <li><a routerLink="past" routerLinkActive="active">Past Bookings</a></li>
-      </ul>
-    </nav>
+    <!-- In dashboard.component.html -->
+<nav class="dashboard-nav">
+  <ul>
+    <li><a routerLink="booking" routerLinkActive="active">Booking</a></li>
+    <li><a routerLink="upcoming" routerLinkActive="active">Upcoming Bookings</a></li>
+    <li><a routerLink="past" routerLinkActive="active">Past Bookings</a></li>
+    <li><a routerLink="complaints" routerLinkActive="active">Complaints</a></li>
+  </ul>
+</nav>
     <router-outlet></router-outlet>
 </div>
 
