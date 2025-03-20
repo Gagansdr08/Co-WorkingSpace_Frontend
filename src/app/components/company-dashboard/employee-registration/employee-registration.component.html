@@ -1,0 +1,132 @@
+<p>employee-registration works!</p>
+<!-- src/app/components/company-dashboard/employee-registration/employee-registration.component.html -->
+<div class="employee-registration-container">
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+    </div>
+  
+    <div class="employee-form-section">
+      <h3>Register New Employee</h3>
+      <form [formGroup]="employeeForm" (ngSubmit)="registerEmployee()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input 
+              type="text" 
+              id="firstName" 
+              formControlName="firstName"
+              class="form-control">
+            <div class="error-message" *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched">
+              <span *ngIf="employeeForm.get('firstName')?.errors?.['required']">First name is required</span>
+              <span *ngIf="employeeForm.get('firstName')?.errors?.['maxlength']">First name must not exceed 50 characters</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input 
+              type="text" 
+              id="lastName" 
+              formControlName="lastName"
+              class="form-control">
+            <div class="error-message" *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched">
+              <span *ngIf="employeeForm.get('lastName')?.errors?.['required']">Last name is required</span>
+              <span *ngIf="employeeForm.get('lastName')?.errors?.['maxlength']">Last name must not exceed 50 characters</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email"
+              class="form-control">
+            <div class="error-message" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+              <span *ngIf="employeeForm.get('email')?.errors?.['required']">Email is required</span>
+              <span *ngIf="employeeForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone (10 digits)</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              formControlName="phone"
+              class="form-control">
+            <div class="error-message" *ngIf="employeeForm.get('phone')?.invalid && employeeForm.get('phone')?.touched">
+              <span *ngIf="employeeForm.get('phone')?.errors?.['required']">Phone number is required</span>
+              <span *ngIf="employeeForm.get('phone')?.errors?.['pattern']">Please enter a valid 10-digit phone number</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="jobTitle">Job Title</label>
+            <input 
+              type="text" 
+              id="jobTitle" 
+              formControlName="jobTitle"
+              class="form-control">
+            <div class="error-message" *ngIf="employeeForm.get('jobTitle')?.invalid && employeeForm.get('jobTitle')?.touched">
+              <span *ngIf="employeeForm.get('jobTitle')?.errors?.['required']">Job title is required</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input 
+              type="text" 
+              id="department" 
+              formControlName="department"
+              class="form-control">
+            <div class="error-message" *ngIf="employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched">
+              <span *ngIf="employeeForm.get('department')?.errors?.['required']">Department is required</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="employeeForm.invalid || loading">
+            Register Employee
+          </button>
+          <button type="button" class="btn-secondary" (click)="employeeForm.reset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="employee-list-section">
+      <h3>Registered Employees</h3>
+      
+      <div class="no-employees" *ngIf="!loading && employees.length === 0">
+        No employees registered yet.
+      </div>
+      
+      <table class="employee-table" *ngIf="employees.length > 0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job Title</th>
+            <th>Department</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.jobTitle }}</td>
+            <td>{{ employee.department }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

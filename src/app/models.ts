@@ -79,3 +79,15 @@ export interface ApiResponse<T> {
     endTime: string;
     notes: string;
   }
+//company interface
+  export interface Company {
+    id: number;
+    name: string;
+    address: string;
+    email: string;
+    phone: string;
+    description?: string;
+    active: boolean;
+    allocatedSeatsCount?: number;
+    allocatedSeats?: Seat[] | null;
+  }

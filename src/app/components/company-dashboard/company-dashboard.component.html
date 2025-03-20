@@ -1,0 +1,46 @@
+<p>company-dashboard works!</p>
+<!-- src/app/components/company-dashboard/company-dashboard.component.html -->
+<div class="company-dashboard-container">
+    <header class="dashboard-header">
+      <h1>Company Dashboard</h1>
+      <div class="company-info" *ngIf="currentCompany">
+        <span>{{ currentCompany.name }}</span>
+      </div>
+    </header>
+  
+    <div class="loading-error-container">
+      <div class="loading" *ngIf="loading">Loading...</div>
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </div>
+  
+    <nav class="dashboard-nav">
+      <ul>
+        <li>
+          <a 
+            [class.active]="activeTab === 'employees'" 
+            (click)="setActiveTab('employees')">
+            Employee Management
+          </a>
+        </li>
+        <li>
+          <a 
+            [class.active]="activeTab === 'seats'" 
+            (click)="setActiveTab('seats')">
+            Seat Allocation
+          </a>
+        </li>
+      </ul>
+    </nav>
+  
+    <main class="dashboard-content">
+      <div *ngIf="activeTab === 'employees'" class="tab-content">
+        <h2>Employee Management</h2>
+        <app-employee-registration [company]="currentCompany"></app-employee-registration>
+      </div>
+      
+      <div *ngIf="activeTab === 'seats'" class="tab-content">
+        <h2>Seat Allocation</h2>
+        <app-seat-allocation [company]="currentCompany" [coworkingSpaceId]="coworkingSpaceId"></app-seat-allocation>
+      </div>
+    </main>
+  </div>

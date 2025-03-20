@@ -41,4 +41,17 @@ export class EmployeeService {
     return this.apiService.put<ApiResponse<Employee>>(`/employees/${id}`, employee)
       .pipe(map(response => response.data));
   }
+
+
+  getEmployeesByCompany(companyId: number): Observable<Employee[]> {
+    return this.apiService.get<ApiResponse<Employee[]>>(`/employees/company/${companyId}`)
+      .pipe(map(response => response.data));
+  }
+
+  createEmployee(companyId: number, employeeData: any): Observable<Employee> {
+    return this.apiService.post<ApiResponse<Employee>>(`/employees/company/${companyId}`, employeeData)
+      .pipe(map(response => response.data));
+  }
+
+  
 }

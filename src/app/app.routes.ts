@@ -3,6 +3,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BookingComponent } from './components/dashboard/booking/booking.component';
 import { UpcomingBookingComponent } from './components/dashboard/upcoming-booking/upcoming-booking.component';
 import { PastBookingComponent } from './components/dashboard/past-booking/past-booking.component';
+import { CompanyDashboardComponent } from './components/company-dashboard/company-dashboard.component';
 
 export const routes: Routes = [
   { 
@@ -15,6 +16,7 @@ export const routes: Routes = [
       { path: 'past', component: PastBookingComponent }
     ]
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: '/dashboard' }
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/dashboard' },
+  { path: 'company-dashboard', component: CompanyDashboardComponent },
 ];
