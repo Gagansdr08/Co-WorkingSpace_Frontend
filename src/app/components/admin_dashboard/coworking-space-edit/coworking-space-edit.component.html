@@ -1,0 +1,64 @@
+<div class="container mt-4">
+    <div class="card shadow-sm p-4">
+      <h2 class="text-center mb-4">Edit Coworking Space</h2>
+  
+      <!-- Loading & Error Messages -->
+      <div *ngIf="isLoading" class="alert alert-info text-center">Loading...</div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+  
+      <!-- Edit Form -->
+      <form *ngIf="space" (ngSubmit)="updateSpace()">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" [(ngModel)]="space.name" name="name" required>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Address</label>
+          <input type="text" class="form-control" [(ngModel)]="space.address" name="address" required>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Contact Email</label>
+          <input type="email" class="form-control" [(ngModel)]="space.contactEmail" name="contactEmail" required>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Contact Phone</label>
+          <input type="text" class="form-control" [(ngModel)]="space.contactPhone" name="contactPhone" required>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" [(ngModel)]="space.description" name="description"></textarea>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label">Total Seats</label>
+            <input type="number" class="form-control" [(ngModel)]="space.totalSeats" name="totalSeats" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Available Seats</label>
+            <input type="number" class="form-control" [(ngModel)]="space.availableSeats" name="availableSeats" required>
+          </div>
+        </div>
+  
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="space.active" name="active">
+          <label class="form-check-label">Active</label>
+        </div>
+  
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            {{ isLoading ? 'Updating...' : 'Update Space' }}
+          </button>
+        </div>
+      </form>
+  
+      <div class="text-center mt-3">
+        <a routerLink="/coworking-spaces" class="btn btn-secondary">Back to List</a>
+      </div>
+    </div>
+  </div>
+  
