@@ -1,0 +1,72 @@
+<div class="container mt-4">
+    <!-- Existing workspace details -->
+  
+    <!-- Seats Section -->
+    <div class="card mt-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Seats</h4>
+        <div>
+          <button class="btn btn-success me-2" (click)="addSeat()">Add Seat</button>
+          <button class="btn btn-primary" (click)="addBulkSeats()">Add Multiple Seats</button>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div *ngIf="isLoadingSeats" class="text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        
+        <div *ngIf="seats && seats.length > 0; else noSeats">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Seat Number</th>
+                  <th>Type</th>
+                  <th>Features</th>
+                  <th>Status</th>
+                  <th>Company</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let seat of seats">
+                  <td>{{ seat.seatNumber }}</td>
+                  <td>{{ seat.type }}</td>
+                  <td>{{ seat.features }}</td>
+                  <td>
+                    <span 
+                      [ngClass]="{
+                        'badge bg-success': seat.status === 'AVAILABLE',
+                        'badge bg-warning': seat.status === 'COMPANY_ALLOCATED',
+                        'badge bg-info': seat.status === 'EMPLOYEE_BOOKED'
+                      }"
+                    >
+                      {{ seat.status }}
+                    </span>
+                  </td>
+                  <td>{{ seat.companyName || 'N/A' }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm" (click)="deleteSeat(seat.id)">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <ng-template #noSeats>
+          <div *ngIf="!isLoadingSeats" class="alert alert-info">
+            No seats available for this workspace. Add seats using the buttons above.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  
+    <!-- Back button -->
+    <div class="mt-3">
+      <a [routerLink]="['/coworking-spaces', coworkingSpaceId]" class="btn btn-primary">Back to Coworking Space</a>
+    </div>
+  </div>

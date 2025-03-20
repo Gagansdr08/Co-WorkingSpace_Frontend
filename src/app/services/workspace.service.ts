@@ -1,29 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ApiService } from './api.service';
-import { ApiResponse, Workspace } from '../models';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { Workspace, ApiResponse, Seat } from '../models';
+
 @Injectable({
   providedIn: 'root'
 })
 export class WorkspaceService {
-  constructor(private apiService: ApiService) { }
+  private apiUrl = 'http://localhost:8080/api/workspaces';
+
+  constructor(private http: HttpClient) {}
+
+  getAllWorkspacesForCoworkingSpace(coworkingSpaceId: number): Observable<Workspace[]> {
+    return this.http.get<ApiResponse<Workspace[]>>(`${this.apiUrl}/coworking-space/${coworkingSpaceId}`).pipe(
+      map(response => response.data)
+    );
+  }
 
   getAvailableWorkspaces(coworkingSpaceId: number): Observable<Workspace[]> {
-    // This endpoint should return workspaces with available seats
-    // The API documentation doesn't specify a direct endpoint for this
-    // You might need to adjust based on your actual API
-    return this.apiService.get<ApiResponse<Workspace[]>>(`/workspaces/coworking-space/${coworkingSpaceId}/available`)//here we have default put as 1 if in future we want to increase the coworking spcae then create a service for this.
-      .pipe(map(response => response.data));
+    return this.http.get<ApiResponse<Workspace[]>>(`${this.apiUrl}/coworking-space/${coworkingSpaceId}/available`).pipe(
+      map(response => response.data)
+    );
   }
 
-  getWorkspaceById(id: number): Observable<Workspace> {
-    return this.apiService.get<ApiResponse<Workspace>>(`/workspaces/${id}`)
-      .pipe(map(response => response.data));
+  getWorkspacesWithMinSeats(coworkingSpaceId: number, minSeats: number): Observable<Workspace[]> {
+    return this.http.get<ApiResponse<Workspace[]>>(`${this.apiUrl}/coworking-space/${coworkingSpaceId}/available-seats?minSeats=${minSeats}`).pipe(
+      map(response => response.data)
+    );
   }
 
-  getWorkspaceWithSeats(id: number): Observable<Workspace> {
-    return this.apiService.get<ApiResponse<Workspace>>(`/workspaces/${id}/with-seats`)
-      .pipe(map(response => response.data));
+  getWorkspaceWithSeats(workspaceId: number): Observable<Workspace> {
+    return this.http.get<ApiResponse<Workspace>>(`${this.apiUrl}/${workspaceId}/with-seats`).pipe(
+      map(response => response.data)
+    );
+  }
+
+  createWorkspace(coworkingSpaceId: number, workspace: Workspace): Observable<Workspace> {
+    return this.http.post<ApiResponse<Workspace>>(`${this.apiUrl}/coworking-space/${coworkingSpaceId}`, workspace).pipe(
+      map(response => response.data)
+    );
+  }
+
+  updateWorkspace(workspaceId: number, workspace: Workspace): Observable<Workspace> {
+    return this.http.put<ApiResponse<Workspace>>(`${this.apiUrl}/${workspaceId}`, workspace).pipe(
+      map(response => response.data)
+    );
+  }
+
+  deleteWorkspace(workspaceId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${workspaceId}`);
   }
 }

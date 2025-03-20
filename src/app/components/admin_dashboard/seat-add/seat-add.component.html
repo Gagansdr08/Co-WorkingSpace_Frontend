@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2>Add New Seat</h2>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+    <form (ngSubmit)="addSeat()">
+      <div class="mb-3">
+        <label class="form-label">Seat Number</label>
+        <input type="text" class="form-control" [(ngModel)]="newSeat.seatNumber" name="seatNumber" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Type</label>
+        <input type="text" class="form-control" [(ngModel)]="newSeat.type" name="type" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Features</label>
+        <textarea class="form-control" [(ngModel)]="newSeat.features" name="features"></textarea>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Adding...' : 'Add Seat' }}
+      </button>
+  
+      <a [routerLink]="['/coworking-spaces', coworkingSpaceId, 'workspaces', workspaceId]" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>

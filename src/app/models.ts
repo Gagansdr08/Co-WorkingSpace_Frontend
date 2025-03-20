@@ -79,7 +79,6 @@ export interface ApiResponse<T> {
     endTime: string;
     notes: string;
   }
-<<<<<<< HEAD
 //company interface
   export interface Company {
     id: number;
@@ -92,7 +91,6 @@ export interface ApiResponse<T> {
     allocatedSeatsCount?: number;
     allocatedSeats?: Seat[] | null;
   }
-=======
 
   export interface CoworkingSpace {
     id?: number; 
@@ -104,6 +102,6 @@ export interface ApiResponse<T> {
     active: boolean;
     totalSeats: number;
     availableSeats: number;
+    workspaces?: Workspace[];
   }
   
->>>>>>> fdb6775c9afa19a4cb6dee2c5e4efe397220d39e
