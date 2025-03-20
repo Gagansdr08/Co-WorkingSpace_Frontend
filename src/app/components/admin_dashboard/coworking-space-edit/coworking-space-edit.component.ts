@@ -48,7 +48,7 @@ export class CoworkingSpaceEditComponent implements OnInit {
       this.isLoading = true;
       this.coworkingSpaceService.updateSpace(this.space.id!, this.space).subscribe({
         next: () => {
-          this.router.navigate(['/coworking-spaces']); // ✅ Redirect after update
+          this.router.navigate(['/coworking-spaces']); 
         },
         error: () => {
           this.errorMessage = 'Failed to update coworking space.';

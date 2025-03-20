@@ -1,3 +1,4 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 
 // Dashboard Components
@@ -21,7 +22,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'booking', pathMatch: 'full' },
       { path: 'booking', component: BookingComponent },
       { path: 'upcoming', component: UpcomingBookingComponent },
-      { path: 'past', component: PastBookingComponent }
+      { path: 'past', component: PastBookingComponent },
+      //{ path: 'complaints', component: ComplaintsComponent }
     ]
   },
 

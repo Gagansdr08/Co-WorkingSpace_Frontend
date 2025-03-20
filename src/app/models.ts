@@ -92,3 +92,21 @@ export interface ApiResponse<T> {
     availableSeats: number;
   }
   
+// src/app/models/complaint.model.ts
+export interface Complaint {
+  id?: number;
+  employeeId: number;
+  employeeName?: string;
+  subject: string;
+  description: string;
+  status?: 'NEW' | 'IN_PROGRESS' | 'RESOLVED';
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateComplaintRequest {
+  employeeId: number;
+  subject: string;
+  description: string;
+}
+  
