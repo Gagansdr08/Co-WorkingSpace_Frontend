@@ -1,10 +1,13 @@
-<p>company-dashboard works!</p>
+<!-- <p>company-dashboard works!</p> -->
 <!-- src/app/components/company-dashboard/company-dashboard.component.html -->
 <div class="company-dashboard-container">
     <header class="dashboard-header">
       <h1>Company Dashboard</h1>
       <div class="company-info" *ngIf="currentCompany">
         <span>{{ currentCompany.name }}</span>
+        <button class="logout-btn" (click)="logout()">
+          <i class="material-icons">logout</i> Logout
+        </button>
       </div>
     </header>
   
@@ -35,7 +38,51 @@
     <main class="dashboard-content">
       <div *ngIf="activeTab === 'employees'" class="tab-content">
         <h2>Employee Management</h2>
-        <app-employee-registration [company]="currentCompany"></app-employee-registration>
+        <div class="section-actions">
+          <button class="add-btn" (click)="openAddEmployeeModal()">
+            <i class="material-icons">person_add</i> Add Employee
+          </button>
+          <!-- <button class="view-all-btn" (click)="loadEmployees()">View All</button> -->
+          <div >
+            <h3>Registered Employees</h3>
+            
+            <div class="employee-table-container">
+              <div *ngIf="employees.length > 0; else noEmployees">
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Job Title</th>
+                        <th>Department</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let employee of employees">
+                        <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.jobTitle }}</td>
+                        <td>{{ employee.department }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+              <!-- Fallback for No Employees -->
+              <ng-template #noEmployees>
+                <div class="alert alert-info" role="alert">
+                  No employees available.
+                </div>
+              </ng-template>
+            </div>
+            
+          </div>
+        </div>
+        <!-- <app-employee-registration [company]="currentCompany"></app-employee-registration> -->
+        <app-add-employee [visible]="showAddEmployeeModal" [companyId]="companyId" (close)="closeAddEmployeeModal()"
+    (employeeAdded)="handleEmployeeAdded($event)"></app-add-employee>
       </div>
       
       <div *ngIf="activeTab === 'seats'" class="tab-content">

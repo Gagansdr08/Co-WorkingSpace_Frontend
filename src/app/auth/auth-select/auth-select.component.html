@@ -1,0 +1,36 @@
+<p>auth-select works!</p>
+<!-- auth-select.component.html -->
+<div class="auth-select-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>{{ roleTitle }} Access</h1>
+        <p>Choose an option to continue</p>
+      </div>
+      
+      <div class="auth-options">
+        <div class="auth-option" (click)="navigateToLogin()">
+          <div class="option-icon">
+            <i class="material-icons">login</i>
+          </div>
+          <h2>Login</h2>
+          <p>Already have an account? Sign in to access your dashboard</p>
+          <button class="primary-btn">Login</button>
+        </div>
+        
+        <div class="auth-option" (click)="navigateToRegister()">
+          <div class="option-icon">
+            <i class="material-icons">app_registration</i>
+          </div>
+          <h2>Register</h2>
+          <p>New to our platform? Create a new {{ roleTitle.toLowerCase() }} account</p>
+          <button class="primary-btn">Register</button>
+        </div>
+      </div>
+      
+      <div class="auth-footer">
+        <button class="secondary-btn" routerLink="/">
+          <i class="material-icons">arrow_back</i> Back to Selection
+        </button>
+      </div>
+    </div>
+  </div>

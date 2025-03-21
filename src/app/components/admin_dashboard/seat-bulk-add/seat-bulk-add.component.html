@@ -1,0 +1,39 @@
+<div class="container mt-4">
+    <h2>Add Multiple Seats</h2>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+    <form (ngSubmit)="addBulkSeats()">
+      <div class="mb-3">
+        <label class="form-label">Seat Prefix</label>
+        <input type="text" class="form-control" [(ngModel)]="bulkRequest.prefix" name="prefix" required>
+        <small class="text-muted">Example: "A" will create seats like A001, A002, etc.</small>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Starting Number</label>
+        <input type="number" class="form-control" [(ngModel)]="bulkRequest.startingNumber" name="startingNumber" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Number of Seats</label>
+        <input type="number" class="form-control" [(ngModel)]="bulkRequest.numberOfSeats" name="numberOfSeats" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Type</label>
+        <input type="text" class="form-control" [(ngModel)]="bulkRequest.type" name="type" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Features</label>
+        <textarea class="form-control" [(ngModel)]="bulkRequest.features" name="features"></textarea>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Adding...' : 'Add Seats' }}
+      </button>
+  
+      <a [routerLink]="['/coworking-spaces', coworkingSpaceId, 'workspaces', workspaceId]" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>

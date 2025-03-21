@@ -1,19 +1,68 @@
 <div class="container mt-4">
-    <h2>Coworking Space Details</h2>
-  
-    <div *ngIf="isLoading" class="alert alert-info">Loading details...</div>
-    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-  
-    <div *ngIf="coworkingSpace">
-      <h3>{{ coworkingSpace.name }}</h3>
-      <p>{{ coworkingSpace.description }}</p>
-      <p><strong>Address:</strong> {{ coworkingSpace.address }}</p>
-      <p><strong>Contact Email:</strong> {{ coworkingSpace.contactEmail }}</p>
-      <p><strong>Contact Phone:</strong> {{ coworkingSpace.contactPhone }}</p>
-      <p><strong>Total Seats:</strong> {{ coworkingSpace.totalSeats }}</p>
-      <p><strong>Available Seats:</strong> {{ coworkingSpace.availableSeats }}</p>
-      <p><strong>Status:</strong> {{ coworkingSpace.active ? 'Active' : 'Inactive' }}</p>
+  <h2>Coworking Space Details</h2>
+
+  <div *ngIf="isLoading" class="alert alert-info">Loading details...</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="coworkingSpace">
+    <h3>{{ coworkingSpace.name }}</h3>
+    <p>{{ coworkingSpace.description }}</p>
+    <p><strong>Address:</strong> {{ coworkingSpace.address }}</p>
+    <p><strong>Contact Email:</strong> {{ coworkingSpace.contactEmail }}</p>
+    <p><strong>Contact Phone:</strong> {{ coworkingSpace.contactPhone }}</p>
+    <p><strong>Total Seats:</strong> {{ coworkingSpace.totalSeats }}</p>
+    <p><strong>Available Seats:</strong> {{ coworkingSpace.availableSeats }}</p>
+    <p><strong>Status:</strong> {{ coworkingSpace.active ? 'Active' : 'Inactive' }}</p>
+    
+    <!-- New Workspace Management Section -->
+    <div class="mt-4">
+      <h4>Workspaces</h4>
+      <button class="btn btn-success mb-3" (click)="goToWorkspaceCreate()">Add New Workspace</button>
+      
+      <div *ngIf="workspaces && workspaces.length > 0; else noWorkspaces">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Price/Seat/Hour</th>
+                <th>Total Seats</th>
+                <th>Available Seats</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let workspace of workspaces">
+                <td>{{ workspace.name }}</td>
+                <td>{{ workspace.type }}</td>
+                <td>{{ workspace.location }}</td>
+                <td>{{ workspace.capacity }}</td>
+                <td>${{ workspace.pricePerSeatPerHour }}</td>
+                <td>{{ workspace.totalSeats }}</td>
+                <td>{{ workspace.availableSeats }}</td>
+                <td>
+                  <button class="btn btn-primary btn-sm mr-2" (click)="viewWorkspaceDetails(workspace.id)">View</button>
+                  <button class="btn btn-warning btn-sm mr-2" (click)="editWorkspace(workspace.id)">Edit</button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteWorkspace(workspace.id)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <ng-template #noWorkspaces>
+        <div class="alert alert-info">
+          No workspaces available for this coworking space. Add one using the button above.
+        </div>
+      </ng-template>
+    </div>
+    
+    <div class="mt-3">
       <a routerLink="/coworking-spaces" class="btn btn-primary">Back to List</a>
     </div>
   </div>
-  
+</div>

@@ -1,0 +1,200 @@
+<p>register works!</p>
+<!-- register-company.component.html -->
+<div class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <h1>Company Registration</h1>
+        <p>Create a new company account</p>
+      </div>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <div class="form-alert error" *ngIf="errorMessage">
+          <i class="material-icons">error_outline</i>
+          <span>{{ errorMessage }}</span>
+        </div>
+        
+        <div class="form-section">
+          <h3>Company Information</h3>
+          
+          <div class="form-group">
+            <label for="companyName">Company Name*</label>
+            <input 
+              type="text" 
+              id="companyName" 
+              formControlName="companyName"
+              placeholder="Enter company name"
+            />
+            <div class="form-error" *ngIf="registerForm.get('companyName')?.invalid && (registerForm.get('companyName')?.dirty || registerForm.get('companyName')?.touched)">
+              <span *ngIf="registerForm.get('companyName')?.errors?.['required']">Company name is required</span>
+              <span *ngIf="registerForm.get('companyName')?.errors?.['minlength']">Company name must be at least 2 characters</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="address">Address*</label>
+            <input 
+              type="text" 
+              id="address" 
+              formControlName="address"
+              placeholder="Enter company address"
+            />
+            <div class="form-error" *ngIf="registerForm.get('address')?.invalid && (registerForm.get('address')?.dirty || registerForm.get('address')?.touched)">
+              <span *ngIf="registerForm.get('address')?.errors?.['required']">Address is required</span>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Company Email*</label>
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email"
+                placeholder="Enter company email"
+              />
+              <div class="form-error" *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+                <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number*</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                formControlName="phone"
+                placeholder="Enter phone number"
+              />
+              <div class="form-error" *ngIf="registerForm.get('phone')?.invalid && (registerForm.get('phone')?.dirty || registerForm.get('phone')?.touched)">
+                <span *ngIf="registerForm.get('phone')?.errors?.['required']">Phone number is required</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea 
+              id="description" 
+              formControlName="description"
+              placeholder="Enter company description"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+        
+        <div class="form-section">
+          <h3>Admin Account</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adminFirstName">First Name*</label>
+              <input 
+                type="text" 
+                id="adminFirstName" 
+                formControlName="adminFirstName"
+                placeholder="Enter first name"
+              />
+              <div class="form-error" *ngIf="registerForm.get('adminFirstName')?.invalid && (registerForm.get('adminFirstName')?.dirty || registerForm.get('adminFirstName')?.touched)">
+                <span *ngIf="registerForm.get('adminFirstName')?.errors?.['required']">First name is required</span>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="adminLastName">Last Name*</label>
+              <input 
+                type="text" 
+                id="adminLastName" 
+                formControlName="adminLastName"
+                placeholder="Enter last name"
+              />
+              <div class="form-error" *ngIf="registerForm.get('adminLastName')?.invalid && (registerForm.get('adminLastName')?.dirty || registerForm.get('adminLastName')?.touched)">
+                <span *ngIf="registerForm.get('adminLastName')?.errors?.['required']">Last name is required</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="adminEmail">Admin Email*</label>
+            <input 
+              type="email" 
+              id="adminEmail" 
+              formControlName="adminEmail"
+              placeholder="Enter admin email address"
+            />
+            <div class="form-error" *ngIf="registerForm.get('adminEmail')?.invalid && (registerForm.get('adminEmail')?.dirty || registerForm.get('adminEmail')?.touched)">
+              <span *ngIf="registerForm.get('adminEmail')?.errors?.['required']">Email is required</span>
+              <span *ngIf="registerForm.get('adminEmail')?.errors?.['email']">Please enter a valid email</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password*</label>
+            <div class="password-container">
+              <input 
+                [type]="hidePassword ? 'password' : 'text'" 
+                id="password" 
+                formControlName="password"
+                placeholder="Enter password"
+              />
+              <button 
+                type="button" 
+                class="password-toggle" 
+                (click)="hidePassword = !hidePassword"
+              >
+                <i class="material-icons">{{ hidePassword ? 'visibility_off' : 'visibility' }}</i>
+              </button>
+            </div>
+            <div class="form-error" *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+              <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+              <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password*</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              formControlName="confirmPassword"
+              placeholder="Confirm your password"
+            />
+            <div class="form-error" *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+              <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+              <span *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']">Passwords do not match</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group terms">
+          <div class="checkbox-container">
+            <input type="checkbox" id="termsAccepted" formControlName="termsAccepted" />
+            <label for="termsAccepted">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+          <div class="form-error" *ngIf="registerForm.get('termsAccepted')?.invalid && (registerForm.get('termsAccepted')?.dirty || registerForm.get('termsAccepted')?.touched)">
+            <span *ngIf="registerForm.get('termsAccepted')?.errors?.['required']">You must accept the terms and conditions</span>
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="register-btn" 
+          [disabled]="registerForm.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">Register</span>
+          <span *ngIf="isLoading" class="loader"></span>
+        </button>
+      </form>
+      
+      <div class="register-footer">
+        <button type="button" class="back-btn" (click)="goBack()">
+          <i class="material-icons">arrow_back</i> Back
+        </button>
+        
+        <div class="login-option">
+          <span>Already have an account?</span>
+          <a [routerLink]="['/auth/login', { role: 'company' }]">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>

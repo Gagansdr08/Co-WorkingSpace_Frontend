@@ -4,6 +4,9 @@
       <div class="user-info" *ngIf="currentEmployee">
         <span>Welcome, {{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</span>
       </div>
+      <button class="logout-btn" (click)="logout()">
+        <i class="material-icons">logout</i> Logout
+      </button>
     </header>
   
     <div class="loading-error-container">

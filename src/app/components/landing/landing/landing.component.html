@@ -1,0 +1,37 @@
+<p>landing works!</p>
+<!-- landing.component.html -->
+<div class="landing-container">
+    <div class="landing-header">
+      <h1>Welcome to CoWork Space</h1>
+      <p>Select your role to continue</p>
+    </div>
+    
+    <div class="role-selection">
+      <div class="role-card" (click)="navigateToAuth('employee')">
+        <div class="role-icon">
+          <i class="material-icons">person</i>
+        </div>
+        <h2>Employee</h2>
+        <p>Access your workspace bookings and manage your schedule</p>
+        <button class="primary-btn">Continue as Employee</button>
+      </div>
+      
+      <div class="role-card" (click)="navigateToAuth('company')">
+        <div class="role-icon">
+          <i class="material-icons">business</i>
+        </div>
+        <h2>Company</h2>
+        <p>Manage your company's workspace allocations and employees</p>
+        <button class="primary-btn">Continue as Company</button>
+      </div>
+      
+      <div class="role-card" (click)="navigateToAuth('space-owner')">
+        <div class="role-icon">
+          <i class="material-icons">Space </i>
+        </div>
+        <h2>Space Owner</h2>
+        <p>Manage your coworking spaces, workspaces, and company approvals</p>
+        <button class="primary-btn">Continue as Space Owner</button>
+      </div>
+    </div>
+  </div>

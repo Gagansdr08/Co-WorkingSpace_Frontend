@@ -1,0 +1,140 @@
+
+<!-- add-employee.component.html -->
+<div class="modal-backdrop" *ngIf="visible" (click)="closeModal()"></div>
+<div class="modal-container" *ngIf="visible">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Add New Employee</h2>
+      <button class="close-btn" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="alert error" *ngIf="errorMessage">
+        <i class="material-icons">error_outline</i>
+        <span>{{ errorMessage }}</span>
+      </div>
+      
+      <div class="alert success" *ngIf="successMessage && credentials">
+        <i class="material-icons">check_circle</i>
+        <span>{{ successMessage }}</span>
+      </div>
+      
+      <div class="credentials-container" *ngIf="credentials">
+        <h3>Employee Credentials</h3>
+        <p class="instruction">Please save these credentials and share them securely with the employee:</p>
+        
+        <div class="credentials-box">
+          <div class="credential-row">
+            <span class="credential-label">Email:</span>
+            <span class="credential-value">{{ credentials.email }}</span>
+          </div>
+          <div class="credential-row">
+            <span class="credential-label">Username:</span>
+            <span class="credential-value">{{ credentials.username }}</span>
+          </div>
+          <div class="credential-row">
+            <span class="credential-label">Password:</span>
+            <span class="credential-value">{{ credentials.password }}</span>
+          </div>
+        </div>
+        
+        <div class="credentials-actions">
+          <button class="add-another-btn" (click)="credentials = null; successMessage = null">
+            <i class="material-icons">add</i> Add Another Employee
+          </button>
+        </div>
+      </div>
+      
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" *ngIf="!credentials">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name*</label>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              placeholder="Enter first name"
+            />
+            <div class="form-error" *ngIf="employeeForm.get('firstName')?.invalid && (employeeForm.get('firstName')?.dirty || employeeForm.get('firstName')?.touched)">
+              <span *ngIf="employeeForm.get('firstName')?.errors?.['required']">First name is required</span>
+              <span *ngIf="employeeForm.get('firstName')?.errors?.['minlength']">First name must be at least 2 characters</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="lastName">Last Name*</label>
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              placeholder="Enter last name"
+            />
+            <div class="form-error" *ngIf="employeeForm.get('lastName')?.invalid && (employeeForm.get('lastName')?.dirty || employeeForm.get('lastName')?.touched)">
+              <span *ngIf="employeeForm.get('lastName')?.errors?.['required']">Last name is required</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address*</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Enter email address"
+          />
+          <div class="form-error" *ngIf="employeeForm.get('email')?.invalid && (employeeForm.get('email')?.dirty || employeeForm.get('email')?.touched)">
+            <span *ngIf="employeeForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="employeeForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            formControlName="phone"
+            placeholder="Enter phone number"
+          />
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="jobTitle">Job Title</label>
+            <input
+              type="text"
+              id="jobTitle"
+              formControlName="jobTitle"
+              placeholder="Enter job title"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input
+              type="text"
+              id="department"
+              formControlName="department"
+              placeholder="Enter department"
+            />
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+          <button
+            type="submit"
+            class="submit-btn"
+            [disabled]="employeeForm.invalid || isLoading"
+          >
+            <span *ngIf="!isLoading">Add Employee</span>
+            <span *ngIf="isLoading" class="loader"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

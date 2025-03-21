@@ -1,0 +1,203 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h1>Space Owner Registration</h1>
+      <p>Create a new space owner account</p>
+    </div>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <div class="form-alert error" *ngIf="errorMessage">
+        <i class="material-icons">error_outline</i>
+        <span>{{ errorMessage }}</span>
+      </div>
+      
+      <!-- User Information -->
+      <div class="form-section">
+        <h2>Personal Information</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name*</label>
+            <input 
+              type="text" 
+              id="firstName" 
+              formControlName="firstName"
+              placeholder="Enter first name"
+            />
+            <div class="form-error" *ngIf="registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.dirty || registerForm.get('firstName')?.touched)">
+              <span *ngIf="registerForm.get('firstName')?.errors?.['required']">First name is required</span>
+              <span *ngIf="registerForm.get('firstName')?.errors?.['minlength']">First name must be at least 2 characters</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="lastName">Last Name*</label>
+            <input 
+              type="text" 
+              id="lastName" 
+              formControlName="lastName"
+              placeholder="Enter last name"
+            />
+            <div class="form-error" *ngIf="registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.dirty || registerForm.get('lastName')?.touched)">
+              <span *ngIf="registerForm.get('lastName')?.errors?.['required']">Last name is required</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address*</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="Enter email address"
+          />
+          <div class="form-error" *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+            <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password*</label>
+          <div class="password-container">
+            <input 
+              [type]="hidePassword ? 'password' : 'text'" 
+              id="password" 
+              formControlName="password"
+              placeholder="Enter password"
+            />
+            <button 
+              type="button" 
+              class="password-toggle" 
+              (click)="hidePassword = !hidePassword"
+            >
+              <i class="material-icons">{{ hidePassword ? 'visibility_off' : 'visibility' }}</i>
+            </button>
+          </div>
+          <div class="form-error" *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+            <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password*</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+          />
+          <div class="form-error" *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+            <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+            <span *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']">Passwords do not match</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coworking Space Information -->
+      <div class="form-section">
+        <h2>Coworking Space Information</h2>
+        <div class="form-group">
+          <label for="spaceName">Space Name*</label>
+          <input 
+            type="text" 
+            id="spaceName" 
+            formControlName="spaceName"
+            placeholder="Enter coworking space name"
+          />
+          <div class="form-error" *ngIf="registerForm.get('spaceName')?.invalid && (registerForm.get('spaceName')?.dirty || registerForm.get('spaceName')?.touched)">
+            <span *ngIf="registerForm.get('spaceName')?.errors?.['required']">Space name is required</span>
+            <span *ngIf="registerForm.get('spaceName')?.errors?.['maxlength']">Space name cannot exceed 100 characters</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="spaceAddress">Space Address*</label>
+          <input 
+            type="text" 
+            id="spaceAddress" 
+            formControlName="spaceAddress"
+            placeholder="Enter coworking space address"
+          />
+          <div class="form-error" *ngIf="registerForm.get('spaceAddress')?.invalid && (registerForm.get('spaceAddress')?.dirty || registerForm.get('spaceAddress')?.touched)">
+            <span *ngIf="registerForm.get('spaceAddress')?.errors?.['required']">Space address is required</span>
+            <span *ngIf="registerForm.get('spaceAddress')?.errors?.['maxlength']">Space address cannot exceed 255 characters</span>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="spaceContactEmail">Space Email</label>
+            <input 
+              type="email" 
+              id="spaceContactEmail" 
+              formControlName="spaceContactEmail"
+              placeholder="Enter space email address"
+            />
+            <div class="form-error" *ngIf="registerForm.get('spaceContactEmail')?.invalid && (registerForm.get('spaceContactEmail')?.dirty || registerForm.get('spaceContactEmail')?.touched)">
+              <span *ngIf="registerForm.get('spaceContactEmail')?.errors?.['email']">Please enter a valid email</span>
+              <span *ngIf="registerForm.get('spaceContactEmail')?.errors?.['maxlength']">Email cannot exceed 50 characters</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="spaceContactPhone">Space Phone</label>
+            <input 
+              type="text" 
+              id="spaceContactPhone" 
+              formControlName="spaceContactPhone"
+              placeholder="Enter space phone number"
+            />
+            <div class="form-error" *ngIf="registerForm.get('spaceContactPhone')?.invalid && (registerForm.get('spaceContactPhone')?.dirty || registerForm.get('spaceContactPhone')?.touched)">
+              <span *ngIf="registerForm.get('spaceContactPhone')?.errors?.['maxlength']">Phone number cannot exceed 20 characters</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="spaceDescription">Space Description</label>
+          <textarea 
+            id="spaceDescription" 
+            formControlName="spaceDescription"
+            placeholder="Describe your coworking space"
+            rows="3"
+          ></textarea>
+          <div class="form-error" *ngIf="registerForm.get('spaceDescription')?.invalid && (registerForm.get('spaceDescription')?.dirty || registerForm.get('spaceDescription')?.touched)">
+            <span *ngIf="registerForm.get('spaceDescription')?.errors?.['maxlength']">Description cannot exceed 500 characters</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group terms">
+        <div class="checkbox-container">
+          <input type="checkbox" id="termsAccepted" formControlName="termsAccepted" />
+          <label for="termsAccepted">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+        <div class="form-error" *ngIf="registerForm.get('termsAccepted')?.invalid && (registerForm.get('termsAccepted')?.dirty || registerForm.get('termsAccepted')?.touched)">
+          <span *ngIf="registerForm.get('termsAccepted')?.errors?.['required']">You must accept the terms and conditions</span>
+        </div>
+      </div>
+      
+      <button 
+        type="submit" 
+        class="register-btn" 
+        [disabled]="registerForm.invalid || isLoading"
+      >
+        <span *ngIf="!isLoading">Register</span>
+        <span *ngIf="isLoading" class="loader"></span>
+      </button>
+    </form>
+    
+    <div class="register-footer">
+      <button type="button" class="back-btn" (click)="goBack()">
+        <i class="material-icons">arrow_back</i> Back
+      </button>
+      
+      <div class="login-option">
+        <span>Already have an account?</span>
+        <a [routerLink]="['/auth/login', { role: 'space-owner' }]">Sign In</a>
+      </div>
+    </div>
+  </div>
+</div>

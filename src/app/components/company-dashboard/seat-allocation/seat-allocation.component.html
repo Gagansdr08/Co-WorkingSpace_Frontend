@@ -6,124 +6,167 @@
     <div class="success" *ngIf="success">{{ success }}</div>
   </div>
 
-  <div class="seat-allocation-section">
-    <h3>Allocate Seats</h3>
-    <form [formGroup]="allocateForm" (ngSubmit)="allocateSeats()">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="workspaceId">Select Workspace</label>
-          <select 
-            id="workspaceId" 
-            formControlName="workspaceId"
-            class="form-control"
-            (change)="onWorkspaceChange()">
-            <option value="">-- Select a workspace --</option>
-            <option *ngFor="let workspace of workspaces" [value]="workspace.id">
-              {{ workspace.name }} ({{ workspace.availableSeats }} seats available)
-            </option>
-          </select>
-          <div class="error-message" *ngIf="allocateForm.get('workspaceId')?.invalid && allocateForm.get('workspaceId')?.touched">
-            <span *ngIf="allocateForm.get('workspaceId')?.errors?.['required']">Please select a workspace</span>
-          </div>
+  <!-- New Coworking Space Selector -->
+  <div class="coworking-space-selection">
+    <h3>Select Coworking Space</h3>
+    <form [formGroup]="coworkingSpaceForm">
+      <div class="form-group">
+        <label for="coworkingSpaceId">Coworking Space</label>
+        <select 
+          id="coworkingSpaceId" 
+          formControlName="coworkingSpaceId"
+          class="form-control"
+          (change)="onCoworkingSpaceChange()">
+          <option value="">-- Select a coworking space --</option>
+          <option *ngFor="let space of coworkingSpaces" [value]="space.id">
+            {{ space.name }} - {{ space.address }}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="coworkingSpaceForm.get('coworkingSpaceId')?.invalid && coworkingSpaceForm.get('coworkingSpaceId')?.touched">
+          <span *ngIf="coworkingSpaceForm.get('coworkingSpaceId')?.errors?.['required']">Please select a coworking space</span>
         </div>
-        
-        <div class="form-group">
-          <label for="numberOfSeats">Number of Seats</label>
-          <input 
-            type="number" 
-            id="numberOfSeats" 
-            formControlName="numberOfSeats"
-            class="form-control"
-            min="1"
-            [max]="selectedWorkspace?.availableSeats || 1">
-            <div class="seat-allocation-summary" *ngIf="selectedWorkspace">
-              <div>Currently allocated seats from this workspace: 
-                <strong>{{ getSeatsAllocatedInWorkspace(selectedWorkspace.id) }}</strong>
-              </div>
-              <div>Seats you are requesting to add: 
-                <strong>{{ allocateForm.get('numberOfSeats')?.value || 0 }}</strong>
-              </div>
-              <div>Total seats after allocation: 
-                <strong>{{ getSeatsAllocatedInWorkspace(selectedWorkspace.id) + (allocateForm.get('numberOfSeats')?.value || 0) }}</strong>
-              </div>
-            </div>
-          <div class="error-message" *ngIf="allocateForm.get('numberOfSeats')?.invalid && allocateForm.get('numberOfSeats')?.touched">
-            <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['required']">Number of seats is required</span>
-            <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['min']">Minimum 1 seat required</span>
-            <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['max']">Maximum {{ selectedWorkspace?.availableSeats }} seats available</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="workspace-info" *ngIf="selectedWorkspace">
-        <h4>Workspace Details</h4>
-        <div class="info-row">
-          <span class="info-label">Name:</span>
-          <span class="info-value">{{ selectedWorkspace.name }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Type:</span>
-          <span class="info-value">{{ selectedWorkspace.type }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Location:</span>
-          <span class="info-value">{{ selectedWorkspace.location }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Price per Seat:</span>
-          <span class="info-value">${{ selectedWorkspace.pricePerSeatPerHour }}/hour</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Available Seats:</span>
-          <span class="info-value">{{ selectedWorkspace.availableSeats }}</span>
-        </div>
-      </div>
-      
-      <div class="form-actions">
-        <button 
-          type="submit" 
-          class="btn-primary" 
-          [disabled]="allocateForm.invalid || loading || !selectedWorkspace || selectedWorkspace.availableSeats === 0">
-          Allocate Seats
-        </button>
       </div>
     </form>
   </div>
 
-  <div class="allocated-seats-section">
-    <h3>Currently Allocated Seats</h3>
-    
-    <div class="no-seats" *ngIf="!loading && allocatedSeats.length === 0">
-      No seats currently allocated.
-    </div>
-    
-    <div class="allocated-seats" *ngIf="allocatedSeats.length > 0">
-      <div class="seat-card" *ngFor="let seat of allocatedSeats">
-        <div class="seat-header">
-          <span class="seat-number">{{ seat.seatNumber }}</span>
-          <button class="btn-danger btn-sm" (click)="releaseSeat(seat.id)">Release</button>
+  <!-- Only show the rest when a coworking space is selected -->
+  <div *ngIf="coworkingSpaceId">
+    <div class="seat-allocation-section">
+      <h3>Allocate Seats</h3>
+      <form [formGroup]="allocateForm" (ngSubmit)="allocateSeats()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="workspaceId">Select Workspace</label>
+            <select 
+              id="workspaceId" 
+              formControlName="workspaceId"
+              class="form-control"
+              (change)="onWorkspaceChange()">
+              <option value="">-- Select a workspace --</option>
+              <option *ngFor="let workspace of workspaces" [value]="workspace.id">
+                {{ workspace.name }} ({{ workspace.availableSeats }} seats available)
+              </option>
+            </select>
+            <div class="error-message" *ngIf="allocateForm.get('workspaceId')?.invalid && allocateForm.get('workspaceId')?.touched">
+              <span *ngIf="allocateForm.get('workspaceId')?.errors?.['required']">Please select a workspace</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="numberOfSeats">Number of Seats</label>
+            <input 
+              type="number" 
+              id="numberOfSeats" 
+              formControlName="numberOfSeats"
+              class="form-control"
+              min="1"
+              [max]="selectedWorkspace?.availableSeats || 1">
+              <div class="seat-allocation-summary" *ngIf="selectedWorkspace">
+                <div>Currently allocated seats from this workspace: 
+                  <strong>{{ getSeatsAllocatedInWorkspace(selectedWorkspace.id) }}</strong>
+                </div>
+                <div>Seats you are requesting to add: 
+                  <strong>{{ allocateForm.get('numberOfSeats')?.value || 0 }}</strong>
+                </div>
+                <div>Total seats after allocation: 
+                  <strong>{{ getSeatsAllocatedInWorkspace(selectedWorkspace.id) + (allocateForm.get('numberOfSeats')?.value || 0) }}</strong>
+                </div>
+              </div>
+            <div class="error-message" *ngIf="allocateForm.get('numberOfSeats')?.invalid && allocateForm.get('numberOfSeats')?.touched">
+              <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['required']">Number of seats is required</span>
+              <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['min']">Minimum 1 seat required</span>
+              <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['max']">Maximum {{ selectedWorkspace?.availableSeats }} seats available</span>
+            </div>
+          </div>
         </div>
-        <div class="seat-info">
+        
+        <div class="workspace-info" *ngIf="selectedWorkspace">
+          <h4>Workspace Details</h4>
+          <div class="info-row">
+            <span class="info-label">Name:</span>
+            <span class="info-value">{{ selectedWorkspace.name }}</span>
+          </div>
           <div class="info-row">
             <span class="info-label">Type:</span>
-            <span class="info-value">{{ seat.type }}</span>
+            <span class="info-value">{{ selectedWorkspace.type }}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Workspace:</span>
-            <span class="info-value">{{ seat.workspaceName }}</span>
+            <span class="info-label">Location:</span>
+            <span class="info-value">{{ selectedWorkspace.location }}</span>
           </div>
-          <div class="info-row" *ngIf="seat.features">
-            <span class="info-label">Features:</span>
-            <span class="info-value">{{ seat.features }}</span>
+          <div class="info-row">
+            <span class="info-label">Price per Seat:</span>
+            <span class="info-value">${{ selectedWorkspace.pricePerSeatPerHour }}/hour</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Available Seats:</span>
+            <span class="info-value">{{ selectedWorkspace.availableSeats }}</span>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="btn-primary" 
+            [disabled]="allocateForm.invalid || loading || !selectedWorkspace || selectedWorkspace.availableSeats === 0">
+            Allocate Seats
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="allocated-seats-section">
+      <h3>Currently Allocated Seats</h3>
+      
+      <div class="no-seats" *ngIf="!loading && allocatedSeats.length === 0">
+        No seats currently allocated for the selected coworking space.
+      </div>
+      
+      <div class="allocated-seats" *ngIf="allocatedSeats.length > 0">
+        <div class="seat-card" *ngFor="let seat of allocatedSeats">
+          <div class="seat-header">
+            <span class="seat-number">{{ seat.seatNumber }}</span>
+            <button 
+              class="btn-danger btn-sm" 
+              (click)="releaseSeat(seat.id)" 
+              [disabled]="!canReleaseSeat(seat)">
+              Release
+            </button>
+          </div>
+          <div class="seat-info">
+            <div class="info-row">
+              <span class="info-label">Type:</span>
+              <span class="info-value">{{ seat.type }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Workspace:</span>
+              <span class="info-value">{{ seat.workspaceName }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Coworking Space:</span>
+              <span class="info-value">{{ getCoworkingSpaceName(seat) }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Status:</span>
+              <span class="info-value">{{ getSeatStatusLabel(seat.status) }}</span>
+            </div>
+            <div class="info-row" *ngIf="seat.features">
+              <span class="info-label">Features:</span>
+              <span class="info-value">{{ seat.features }}</span>
+            </div>
+            <div class="info-row" *ngIf="getBookingInfo(seat)">
+              <span class="info-label">Note:</span>
+              <span class="info-value">{{ getBookingInfo(seat) }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="bulk-actions" *ngIf="allocatedSeats.length > 0">
-      <button class="btn-danger" (click)="releaseAllSeats()">
-        Release All Seats
-      </button>
+      
+      <div class="bulk-actions" *ngIf="companyAllocatedSeats.length > 0">
+        <button class="btn-danger" (click)="releaseAllSeats()">
+          Release All Seats
+        </button>
+      </div>
     </div>
   </div>
 </div>

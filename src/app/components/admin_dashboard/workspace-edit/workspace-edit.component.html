@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <h2>Edit Workspace</h2>
+  
+    <div *ngIf="isLoading" class="alert alert-info">Loading...</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+    <form *ngIf="workspace" (ngSubmit)="updateWorkspace()">
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="workspace.name" name="name" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Type</label>
+        <input type="text" class="form-control" [(ngModel)]="workspace.type" name="type" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input type="number" class="form-control" [(ngModel)]="workspace.capacity" name="capacity" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" class="form-control" [(ngModel)]="workspace.location" name="location" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Price Per Seat Per Hour</label>
+        <input type="number" class="form-control" [(ngModel)]="workspace.pricePerSeatPerHour" name="pricePerSeatPerHour" required>
+      </div>
+  
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="workspace.available" name="available">
+        <label class="form-check-label">Available</label>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Updating...' : 'Update Workspace' }}
+      </button>
+    </form>
+  
+    <a [routerLink]="['/coworking-spaces', coworkingSpaceId]" class="btn btn-secondary mt-3">Back to Coworking Space</a>
+  </div>
