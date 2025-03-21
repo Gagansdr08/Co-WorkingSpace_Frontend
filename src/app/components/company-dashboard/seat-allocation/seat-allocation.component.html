@@ -61,7 +61,7 @@
               class="form-control"
               min="1"
               [max]="selectedWorkspace?.availableSeats || 1">
-              <div class="seat-allocation-summary" *ngIf="selectedWorkspace">
+              <!-- <div class="seat-allocation-summary" *ngIf="selectedWorkspace">
                 <div>Currently allocated seats from this workspace: 
                   <strong>{{ getSeatsAllocatedInWorkspace(selectedWorkspace.id) }}</strong>
                 </div>
@@ -71,7 +71,7 @@
                 <div>Total seats after allocation: 
                   <strong>{{ getSeatsAllocatedInWorkspace(selectedWorkspace.id) + (allocateForm.get('numberOfSeats')?.value || 0) }}</strong>
                 </div>
-              </div>
+              </div> -->
             <div class="error-message" *ngIf="allocateForm.get('numberOfSeats')?.invalid && allocateForm.get('numberOfSeats')?.touched">
               <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['required']">Number of seats is required</span>
               <span *ngIf="allocateForm.get('numberOfSeats')?.errors?.['min']">Minimum 1 seat required</span>

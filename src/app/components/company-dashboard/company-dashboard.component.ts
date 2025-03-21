@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
 import { Company,Employee } from '../../models';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { EmployeeRegistrationComponent } from './employee-registration/employee-registration.component';
 import { SeatAllocationComponent } from './seat-allocation/seat-allocation.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-dashboard',
-  imports: [NgIf,AddEmployeeComponent,EmployeeRegistrationComponent,SeatAllocationComponent,NgForOf],
+  imports: [NgIf,AddEmployeeComponent,EmployeeRegistrationComponent,SeatAllocationComponent,NgForOf,NgClass],
   templateUrl: './company-dashboard.component.html',
   styleUrl: './company-dashboard.component.css'
 })

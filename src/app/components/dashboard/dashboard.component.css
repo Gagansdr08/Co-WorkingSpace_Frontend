@@ -74,3 +74,126 @@
     padding: 2rem;
     background-color: #ecf0f1;
   }
+
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .profile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #eee;
+  }
+  
+  .close-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .profile-info .info-row {
+    display: flex;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile-info .info-group {
+    flex: 1;
+  }
+  
+  .profile-info h5 {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile-info h5 i {
+    margin-right: 8px;
+    color: #2962ff;
+  }
+  
+  .profile-info p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .primary-btn {
+    background-color: #2962ff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .primary-btn i {
+    margin-right: 0.5rem;
+  }
+  
+  .secondary-btn {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-info .info-row {
+      flex-direction: column;
+    }
+    
+    .profile-info .info-group {
+      margin-bottom: 1rem;
+    }
+  }

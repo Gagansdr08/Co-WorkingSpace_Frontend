@@ -1,0 +1,133 @@
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background-color: #f9f9f9; /* Light gray background */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  h2 {
+    text-align: center;
+    color: #2c3e50; /* Darker heading color */
+    margin-bottom: 1.5rem;
+  }
+  
+  .alert {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da; /* Light red for error messages */
+    color: #721c24;
+  }
+  
+  .mb-3 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); /* Subtle inset shadow for depth */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #80bdff; /* Highlighted blue border on focus */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Slight blue glow effect */
+  }
+  
+  textarea.form-control {
+    resize: vertical; /* Allow vertical resizing for the textarea */
+  }
+  
+  .text-muted {
+    font-size: 0.85rem;
+    color: #6c757d; /* Bootstrap muted gray */
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff; /* Bootstrap primary blue */
+    border-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+    transform: translateY(-2px); /* Subtle upward movement */
+  }
+  
+  .btn-primary:disabled {
+    background-color: #b3d7ff;
+    border-color: #b3d7ff;
+    cursor: not-allowed;
+  }
+  
+  .btn-secondary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #6c757d; /* Bootstrap secondary color */
+    border-color: #6c757d;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #565e64; /* Slightly darker shade */
+  }
+  
+  .ms-2 {
+    margin-left: 0.5rem; /* Add spacing for the Cancel button */
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    .btn-primary,
+    .btn-secondary {
+      width: 100%; /* Buttons take full width on smaller screens */
+    }
+  
+    .ms-2 {
+      margin-left: 0; /* Reset margin for stacked buttons on smaller screens */
+    }
+  }
+  

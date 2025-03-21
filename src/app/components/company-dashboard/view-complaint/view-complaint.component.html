@@ -1,0 +1,90 @@
+<div class="complaints-container">
+    <h2>My Complaints</h2>
+    
+    <div class="alert alert-info" *ngIf="isLoading">
+      <i class="material-icons spin">refresh</i> Loading complaints...
+    </div>
+    
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="material-icons">error_outline</i> {{ errorMessage }}
+    </div>
+    
+    <div class="no-complaints" *ngIf="!isLoading && complaints.length === 0 && !errorMessage">
+      <i class="material-icons">sentiment_satisfied</i>
+      <p>You haven't submitted any complaints yet.</p>
+    </div>
+    
+    <div class="complaints-list" *ngIf="!isLoading && complaints.length > 0">
+      <div class="complaint-card" *ngFor="let complaint of complaints" (click)="viewComplaintDetails(complaint)">
+        <div class="complaint-header">
+          <h3>{{ complaint.title }}</h3>
+          <span class="complaint-status" [ngClass]="getStatusClass(complaint.status)">
+            {{ complaint.status }}
+          </span>
+        </div>
+        <div class="complaint-body">
+          <p class="complaint-description">{{ complaint.description | slice:0:100 }}{{ complaint.description.length > 100 ? '...' : '' }}</p>
+          <div class="complaint-meta">
+            <span class="complaint-date">
+              <i class="material-icons">calendar_today</i> {{ formatDate(complaint.createdAt) }}
+            </span>
+            <span class="complaint-workspace" *ngIf="complaint.workspaceName">
+              <i class="material-icons">business</i> {{ complaint.workspaceName }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Complaint Details Modal -->
+    <div class="modal-backdrop" *ngIf="selectedComplaint" (click)="closeComplaintDetails()"></div>
+    <div class="complaint-modal" *ngIf="selectedComplaint">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Complaint Details</h3>
+          <button type="button" class="close-btn" (click)="closeComplaintDetails()">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="complaint-status-label">
+            Status: 
+            <span class="complaint-status" [ngClass]="getStatusClass(selectedComplaint?.status)">
+              {{ selectedComplaint?.status }}
+            </span>
+          </div>
+          
+          <div class="complaint-details">
+            <h4>{{ selectedComplaint?.title }}</h4>
+            <div class="complaint-meta">
+              <div>
+                <strong>Submitted:</strong> {{ formatDate(selectedComplaint?.createdAt) }}
+              </div>
+              <div *ngIf="selectedComplaint.workspaceName">
+                <strong>Workspace:</strong> {{ selectedComplaint?.workspaceName }}
+              </div>
+              <div *ngIf="selectedComplaint.assignedUserName">
+                <strong>Assigned To:</strong> {{ selectedComplaint?.assignedUserName }}
+              </div>
+              <div *ngIf="selectedComplaint.updatedAt !== selectedComplaint.createdAt">
+                <strong>Last Updated:</strong> {{ formatDate(selectedComplaint?.updatedAt) }}
+              </div>
+            </div>
+            
+            <div class="complaint-content">
+              <h5>Description:</h5>
+              <p>{{ selectedComplaint?.description }}</p>
+            </div>
+            
+            <!-- <div class="complaint-resolution" *ngIf="selectedComplaint.resolutionComments">
+              <h5>Resolution Comments:</h5>
+              <p>{{ selectedComplaint?.resolutionComments }}</p>
+            </div> -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeComplaintDetails()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

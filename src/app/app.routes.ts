@@ -25,6 +25,8 @@ import { SeatBulkAddComponent } from './components/admin_dashboard/seat-bulk-add
 import { SpaceOwnerDashboardComponent } from './components/admin_dashboard/space-owner-dashboard/space-owner-dashboard.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { RoleGuard } from './core/auth/guards/role.guard';
+import { AddComplaintComponent } from './components/dashboard/add-complaint/add-complaint.component';
+import { EmployeeComplaintsComponent } from './components/company-dashboard/view-complaint/view-complaint.component';
 
 export const routes: Routes = [
   // Dashboard & Bookings Routes
@@ -41,7 +43,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'booking', pathMatch: 'full' },
       { path: 'booking', component: BookingComponent },
       { path: 'upcoming', component: UpcomingBookingComponent },
-      { path: 'past', component: PastBookingComponent }
+      { path: 'past', component: PastBookingComponent },
+      { path: 'complaint', component: AddComplaintComponent },
     ]
   },
 
@@ -70,7 +73,7 @@ export const routes: Routes = [
       // { path: 'create', component: CoworkingSpaceCreateComponent },
       // { path: ':id', component: CoworkingSpaceDetailComponent },
       { path: ':id/edit', component: CoworkingSpaceEditComponent },
-      // { path: ':id/workspaces/create', component: WorkspaceCreateComponent },
+      { path: ':id/workspaces/create', component: WorkspaceCreateComponent },
       { path: ':id/workspaces/:workspaceId', component: WorkspaceDetailComponent },
       { path: ':id/workspaces/:workspaceId/edit', component: WorkspaceEditComponent },
 
@@ -87,6 +90,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['COMPANY_ADMIN'] },
     component: CompanyDashboardComponent,
+    children: [
+      { path: 'view-complaint', component: EmployeeComplaintsComponent },
+    ]
   },
   { path: '**', redirectTo: 'dashboard' }
+
+  
 ];

@@ -51,7 +51,7 @@ export class WorkspaceCreateComponent implements OnInit {
     this.workspaceService.createWorkspace(this.coworkingSpaceId, this.newWorkspace as Workspace).subscribe({
       next: (response) => {
         console.log('New workspace created:', response);
-        this.router.navigate(['/coworking-spaces', this.coworkingSpaceId]);
+        this.router.navigate(['/coworking-spaces']);
       },
       error: (error) => {
         console.error('Error creating workspace:', error);

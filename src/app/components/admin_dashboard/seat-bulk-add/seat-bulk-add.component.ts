@@ -44,7 +44,7 @@ export class SeatBulkAddComponent implements OnInit {
     this.seatService.addBulkSeats(this.workspaceId, this.bulkRequest).subscribe({
       next: (response) => {
         console.log(`Added ${response.length} seats successfully`);
-        this.router.navigate(['/coworking-spaces', this.coworkingSpaceId, 'workspaces', this.workspaceId]);
+        this.router.navigate(['/coworking-spaces']);
       },
       error: (error) => {
         console.error('Error adding seats in bulk:', error);

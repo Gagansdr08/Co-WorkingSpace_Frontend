@@ -57,9 +57,9 @@ export class PastBookingComponent extends DashboardBaseComponent {
     this.employeeService.getEmployeeById(this.userid).subscribe({
       next: (employee) => {
         this.currentEmployee = employee;
-        // console.log(this.employeeId);
         this.employeeId=this.currentEmployee.id;
-        this.loadPastBookings(employee.id)},
+        console.log(this.employeeId);
+        this.loadPastBookings()},
       // next: (employee) => {
       //   this.currentEmployee = employee;
       // },
@@ -71,11 +71,12 @@ export class PastBookingComponent extends DashboardBaseComponent {
     });
   }
 
-  loadPastBookings(employeeId: number): void {
-    this.bookingService.getEmployeePastBookings(employeeId).subscribe({
+  loadPastBookings(): void {
+    if(!this.employeeId) return;
+    this.bookingService.getEmployeePastBookings(this.employeeId).subscribe({
       next: (bookings) => {
         this.pastBookings = bookings;
-        
+        console.log(this.pastBookings)
         // Sort bookings by end time in descending order (most recent first)
         this.pastBookings.sort((a, b) => 
           new Date(b.endTime).getTime() - new Date(a.endTime).getTime()

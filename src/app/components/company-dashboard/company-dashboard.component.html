@@ -20,6 +20,13 @@
       <ul>
         <li>
           <a 
+            [class.active]="activeTab === 'Profile'" 
+            (click)="setActiveTab('Profile')">
+            Company Profile
+          </a>
+        </li>
+        <li>
+          <a 
             [class.active]="activeTab === 'employees'" 
             (click)="setActiveTab('employees')">
             Employee Management
@@ -36,6 +43,51 @@
     </nav>
   
     <main class="dashboard-content">
+      <div *ngIf="activeTab === 'Profile'" class="tab-content">
+        <h2>Company Details</h2>
+        <div class="company-details-container" *ngIf="currentCompany">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3>{{ currentCompany.name }}</h3>
+              <!-- <button class="btn btn-sm btn-outline-primary" (click)="editCompanyDetails()">
+                <i class="material-icons">edit</i> Edit
+              </button> -->
+            </div>
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <h5><i class="material-icons align-middle me-2">location_on</i> Address</h5>
+                  <p>{{ currentCompany.address }}</p>
+                </div>
+                <div class="col-md-6">
+                  <h5><i class="material-icons align-middle me-2">email</i> Email</h5>
+                  <p>{{ currentCompany.email }}</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <h5><i class="material-icons align-middle me-2">phone</i> Phone</h5>
+                  <p>{{ currentCompany.phone }}</p>
+                </div>
+                <div class="col-md-6">
+                  <h5><i class="material-icons align-middle me-2">verified</i> Status</h5>
+                  <p>
+                    <span class="badge" [ngClass]="currentCompany.active ? 'bg-success' : 'bg-secondary'">
+                      {{ currentCompany.active ? 'Active' : 'Inactive' }}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h5><i class="material-icons align-middle me-2">description</i> Description</h5>
+                  <p>{{ currentCompany.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div *ngIf="activeTab === 'employees'" class="tab-content">
         <h2>Employee Management</h2>
         <div class="section-actions">

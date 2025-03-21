@@ -6,11 +6,13 @@
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
     <div class="action-buttons">
-      <a 
-        [routerLink]="['/coworking-spaces', coworkingspaceId, 'edit']" 
-        class="btn btn-warning btn-sm">
+      <button class="btn btn-warning btn-sm">
+        <a 
+        [routerLink]="['/coworking-spaces', coworkingspaceId, 'edit']">
         Edit
       </a>
+      </button>
+      
       <button class="logout-btn" (click)="logout()">
         <i class="material-icons">logout</i> Logout
       </button>

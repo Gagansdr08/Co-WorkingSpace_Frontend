@@ -19,6 +19,7 @@ export class DashboardComponent extends DashboardBaseComponent {
   employeeId: number | null = null;
   userid:number | null = null;
   loading = true;
+  activeTab: string = 'employees';
   // error = '';
 
   constructor(
@@ -74,4 +75,24 @@ export class DashboardComponent extends DashboardBaseComponent {
     console.log(this.currentEmployee);
     this.router.navigate(['/dashboard', tab]);
   }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
+
+  showProfileModal = false;
+
+openProfileModal(): void {
+  this.showProfileModal = true;
+}
+
+closeProfileModal(): void {
+  this.showProfileModal = false;
+}
+
+editProfile(): void {
+  // Implement edit profile functionality
+  console.log('Edit profile clicked');
+  // Could open another modal or redirect to edit form
+}
 }

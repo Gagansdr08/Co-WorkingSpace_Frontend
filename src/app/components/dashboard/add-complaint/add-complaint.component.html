@@ -1,0 +1,83 @@
+<p>add-complaint works!</p>
+<div class="add-complaint-container">
+    <h2>Submit a New Complaint</h2>
+    
+    <div class="alert alert-info" *ngIf="isLoading">
+      <i class="material-icons">refresh</i> Loading workspaces...
+    </div>
+    
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="material-icons">error_outline</i> {{ errorMessage }}
+    </div>
+    
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="material-icons">check_circle</i> {{ successMessage }}
+    </div>
+    
+    <form [formGroup]="complaintForm" (ngSubmit)="onSubmit()" class="complaint-form">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title"
+          class="form-control"
+          placeholder="Brief summary of your complaint"
+        />
+        <div class="form-text text-danger" *ngIf="complaintForm.get('title')?.invalid && complaintForm.get('title')?.touched">
+          <span *ngIf="complaintForm.get('title')?.errors?.['required']">Title is required</span>
+          <span *ngIf="complaintForm.get('title')?.errors?.['minlength']">Title must be at least 5 characters</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="workspaceId">Related Workspace (Optional)</label>
+        <select 
+          id="workspaceId" 
+          formControlName="workspaceId"
+          class="form-select"
+        >
+          <option [ngValue]="null">-- Select a workspace --</option>
+          <option *ngFor="let workspace of workspaces" [value]="workspace.id">
+            {{ workspace.name }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea 
+          id="description" 
+          formControlName="description"
+          class="form-control"
+          rows="5"
+          placeholder="Provide details about your complaint"
+        ></textarea>
+        <div class="form-text text-danger" *ngIf="complaintForm.get('description')?.invalid && complaintForm.get('description')?.touched">
+          <span *ngIf="complaintForm.get('description')?.errors?.['required']">Description is required</span>
+          <span *ngIf="complaintForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="complaintForm.invalid || isSubmitting"
+        >
+          <i class="material-icons">send</i>
+          <span *ngIf="!isSubmitting">Submit Complaint</span>
+          <span *ngIf="isSubmitting"
+          (click)="onSubmit()">Submitting...</span>
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-secondary"
+          (click)="complaintForm.reset()"
+        >
+          <i class="material-icons">clear</i>
+          Clear
+        </button>
+      </div>
+    </form>
+  </div>

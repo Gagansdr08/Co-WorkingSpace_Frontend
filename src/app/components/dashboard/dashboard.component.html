@@ -1,26 +1,86 @@
 <div class="dashboard-container">
-    <header class="dashboard-header">
-      <h1>Employee Dashboard</h1>
-      <div class="user-info" *ngIf="currentEmployee">
-        <span>Welcome, {{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</span>
-      </div>
-      <button class="logout-btn" (click)="logout()">
-        <i class="material-icons">logout</i> Logout
-      </button>
-    </header>
-  
-    <div class="loading-error-container">
-      <div class="loading" *ngIf="loading">Loading...</div>
-      <div class="error" *ngIf="error">{{ error }}</div>
+  <header class="dashboard-header">
+    <h1>Employee Dashboard</h1>
+    <div class="user-info" *ngIf="currentEmployee">
+      <span>Welcome, {{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</span>
     </div>
-  
-    <nav class="dashboard-nav">
-      <ul>
-        <li><a routerLink="booking" routerLinkActive="active">Booking</a></li>
-        <li><a routerLink="upcoming" routerLinkActive="active">Upcoming Bookings</a></li>
-        <li><a routerLink="past" routerLinkActive="active">Past Bookings</a></li>
-      </ul>
-    </nav>
-    <router-outlet></router-outlet>
-</div>
+    <button class="profile-btn" (click)="openProfileModal()">
+      <i class="material-icons">account_circle</i> My Profile
+    </button>
+    <button class="logout-btn" (click)="logout()">
+      <i class="material-icons">logout</i> Logout
+    </button>
+  </header>
 
+  <div class="loading-error-container">
+    <div class="loading" *ngIf="loading">Loading...</div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+  </div>
+
+  <nav class="dashboard-nav">
+    <ul>
+      <li><a routerLink="booking" routerLinkActive="active">Booking</a></li>
+      <li><a routerLink="upcoming" routerLinkActive="active">Upcoming Bookings</a></li>
+      <li><a routerLink="past" routerLinkActive="active">Past Bookings</a></li>
+      <li><a routerLink="complaint" routerLinkActive="active">Add Complaint</a></li>
+    </ul>
+  </nav>
+  <!-- Profile Modal -->
+  <div class="modal-backdrop" *ngIf="showProfileModal" (click)="closeProfileModal()"></div>
+  <div class="profile-modal" *ngIf="showProfileModal">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Employee Profile</h2>
+        <button class="close-btn" (click)="closeProfileModal()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="modal-body" *ngIf="currentEmployee">
+        <div class="profile-info">
+          <div class="info-row">
+            <div class="info-group">
+              <h5><i class="material-icons">person</i> Name</h5>
+              <p>{{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</p>
+            </div>
+            <div class="info-group">
+              <h5><i class="material-icons">email</i> Email</h5>
+              <p>{{ currentEmployee.email }}</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-group">
+              <h5><i class="material-icons">phone</i> Phone</h5>
+              <p>{{ currentEmployee.phone || 'Not specified' }}</p>
+            </div>
+            <div class="info-group">
+              <h5><i class="material-icons">work</i> Job Title</h5>
+              <p>{{ currentEmployee.jobTitle }}</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-group">
+              <h5><i class="material-icons">business</i> Department</h5>
+              <p>{{ currentEmployee.department }}</p>
+            </div>
+            <div class="info-group">
+              <h5><i class="material-icons">apartment</i> Company</h5>
+              <p>{{ currentEmployee.companyName }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="secondary-btn" (click)="closeProfileModal()">Close</button>
+        <button class="primary-btn" (click)="editProfile()">
+          <i class="material-icons">edit</i> Edit Profile
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
