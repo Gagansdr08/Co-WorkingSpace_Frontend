@@ -1,6 +1,6 @@
 # CoworkingFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+This project contains the Frontend section of the Project under KPMG.
 
 ## Development server
 
