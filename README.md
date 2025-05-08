@@ -1,6 +1,6 @@
 # CoworkingFrontend
 
-This project contains the Frontend section of the Project under KPMG.
+This repository contains the Frontend section of the Project under KPMG.
 
 ## Development server
 
